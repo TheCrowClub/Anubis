@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+#Proxys
+http.txt
+goodips.txt
+
+
 # Distribution / packaging
 .Python
 build/
