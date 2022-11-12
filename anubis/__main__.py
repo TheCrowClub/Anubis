@@ -24,7 +24,7 @@ def main(dest, protocol, sort):
         with open(dest) as f:
             ips = [line.rstrip("\n") for line in f]
     else:
-        print(f"File {dest} doesn't exists.")
+        exit(f"File {dest} doesn't exists.")
     valid_ips = []
     for ip in ips:
         try:
