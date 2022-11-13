@@ -42,10 +42,10 @@ def main(dest, protocol, sort):
     with open("goodips.txt", "w") as f:
         if sort:
             for ip, _ in sort_list(good_ips):
-                f.write(ip)
+                f.write(f"{ip}\n")
         else:
             for ip, _ in good_ips:
-                f.write(ip)
+                f.write(f"{ip}\n")
 
 
 main()
