@@ -1,6 +1,6 @@
 from os import path
 
-import click
+import rich_click as click
 from validators import ipv4
 
 from anubis import is_good, sort_list
@@ -47,5 +47,5 @@ def main(dest, protocol, sort):
             for ip, _ in good_ips:
                 f.write(f"{ip}\n")
 
-
-main()
+if __name__ == "__main__":
+    main()

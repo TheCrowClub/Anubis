@@ -1,13 +1,13 @@
 [project]
 name = "anubis"
-version = "0.0.2"
+version = "0.0.4"
 authors = [
   { name="Daniel", email="rozario@disroot.org" },
 ]
 description = "This script judge proxy instead of soul. "
 readme = "README.md"
 requires-python = ">=3.7"
-dependencies = ["httpx","click","validators"]
+dependencies = ["httpx","rich-click","validators"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU 3 License",
