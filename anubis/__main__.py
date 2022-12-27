@@ -1,13 +1,22 @@
 from os import path
 
 import rich_click as click
+from rich.live import Live
+from rich.table import Table
 from validators import ipv4
 
 from anubis import is_good, sort_list
 
+table = Table(title="Anubis")
+table.add_column("IP")
+table.add_column("Status")
+table.add_column("Ping Time (ms)")
+
 
 @click.command()
-@click.option("-f", "--filename", "dest", default="proxies.txt", show_default=True)
+@click.option(
+    "-f", "--filename", "dest", default="proxies.txt", show_default=True
+)
 @click.option(
     "-p",
     "--protocol",
@@ -17,7 +26,12 @@ from anubis import is_good, sort_list
     help="Proxy Protocol. Ex: http, https,socks4, socks5",
 )
 @click.option(
-    "-s", "--sort", "sort", is_flag=True, help="Sort as ping time.", show_default=True
+    "-s",
+    "--sort",
+    "sort",
+    is_flag=True,
+    help="Sort as ping time.",
+    show_default=True,
 )
 def main(dest, protocol, sort):
     if path.exists(dest):
@@ -34,18 +48,23 @@ def main(dest, protocol, sort):
             pass
 
     good_ips = []
-    for ip in valid_ips:
-        active = is_good(protocol, ip)
-        if active:
-            good_ips.append(active)
+    with Live(table):
+        for ip in valid_ips:
+            active = is_good(protocol, ip)
+            if active:
+                table.add_row(ip, "[green]Success", str(active))
+                good_ips.append(ip)
+            else:
+                table.add_row(ip, "[red]Error")
 
     with open("goodips.txt", "w") as f:
         if sort:
-            for ip, _ in sort_list(good_ips):
+            for ip in sort_list(good_ips):
                 f.write(f"{ip}\n")
         else:
-            for ip, _ in good_ips:
+            for ip in good_ips:
                 f.write(f"{ip}\n")
+
 
 if __name__ == "__main__":
     main()
