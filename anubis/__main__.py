@@ -26,6 +26,9 @@ table.add_column("Ping Time (ms)")
     help="Proxy Protocol. Ex: http, https,socks4, socks5",
 )
 @click.option(
+    "-o", "--output", "output", default="working.txt", show_default=True
+)
+@click.option(
     "-s",
     "--sort",
     "sort",
@@ -33,7 +36,7 @@ table.add_column("Ping Time (ms)")
     help="Sort as ping time.",
     show_default=True,
 )
-def main(dest, protocol, sort):
+def main(dest, protocol, sort, output):
     if path.exists(dest):
         with open(dest) as f:
             ips = [line.rstrip("\n") for line in f]
@@ -57,7 +60,7 @@ def main(dest, protocol, sort):
             else:
                 table.add_row(ip, "[red]Error")
 
-    with open("goodips.txt", "w") as f:
+    with open(output, "w") as f:
         if sort:
             for ip in sort_list(good_ips):
                 f.write(f"{ip}\n")

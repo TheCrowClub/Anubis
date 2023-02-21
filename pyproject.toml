@@ -1,6 +1,6 @@
 [project]
 name = "anubis"
-version = "0.0.5"
+version = "0.0.6"
 authors = [
   { name="Daniel", email="rozario@disroot.org" },
 ]
